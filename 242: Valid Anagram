@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if (s.size() != t.size()) {   // sizes must match
+            return false;
+        }
+        
+        vector<int> freq(26, 0);      // frequency array for 'a' to 'z'
+        
+        // Count characters in s
+        for (char c : s) {
+            freq[c - 'a']++;
+        }
+        
+        // Subtract characters in t
+        for (char c : t) {
+            freq[c - 'a']--;
+        }
+        
+        // If all counts are zero → it's an anagram
+        for (int count : freq) {
+            if (count != 0) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+};
