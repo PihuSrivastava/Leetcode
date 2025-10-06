@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        if (k == 0) return false; // Edge case, though problem assumes k > 0
+        unordered_map<int, int> mp;
+        mp[0] = -1;
+        int sum = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            sum += nums[i];
+            sum %= k;
+            if (sum < 0) sum += k; // Handle negative sums to ensure non-negative modulo
+            if (mp.count(sum)) {
+                if (i - mp[sum] >= 2) {
+                    return true;
+                }
+                // Do not update; keep the earliest index
+            } else {
+                mp[sum] = i;
+            }
+        }
+        return false;
+    }
+};
